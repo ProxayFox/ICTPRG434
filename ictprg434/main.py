@@ -7,11 +7,8 @@
 # Internet connection speed
 # Active ports
 
-import socket
-import psutil
-import platform
-import subprocess
-import re
+import socket, psutil, platform, subprocess, re
+from datetime import datetime
 
 def start():
   
@@ -26,20 +23,6 @@ def start():
     localIPAddress = sock.getsockname()[0]
     sock.close()
     return localIPAddress
-
-  # Get the MAC address of the NIC that has an active internet connection
-  def getSystemMACAddress():
-    for interface in psutil.net_if_addrs():
-      # Check if the interface has a valid MAC address
-      if psutil.net_if_addrs()[interface][0].address:
-          # Print the MAC address for the interface
-          macAddress = psutil.net_if_addrs()[interface][0].address
-          # breakx
-    return macAddress
-  
-  # Get the System Operating system
-  def getSystemOS():
-    return platform.platform()
 
   def getSystemCPUInfo():
     if bool(re.search(r'\bLinux\b', getSystemOS())) == True:
@@ -73,6 +56,41 @@ def start():
       return cpu_info
     else:
       return "unknown system"
+  
+  def getSystemTime():
+    return datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+  
+  def getSystemNetworkInterfaceName(target_ip):
+    interfaces = psutil.net_if_addrs()
+    for interface_name, addresses in interfaces.items():
+        for address in addresses:
+            if address.family == socket.AF_INET and address.address == target_ip:
+                return interface_name
+    return None
 
+  def getSystemNetworkSpeed(interfaceName):
+    # Retrieve network interfaces and their stats
+    nic_stats = psutil.net_if_stats()
+    nic_speed = nic_stats.get(interfaceName).speed
+    return f"{nic_speed} Mbps"
+  
 
-  print(getSystemCPUInfo())
+  def getSystemNetworkPorts():
+    # Get all network connections
+    connections = psutil.net_connections()
+    active_ports = []
+
+    for conn in connections:
+        # Only consider active connections (e.g., LISTEN or ESTABLISHED states)
+        if conn.status in ('LISTEN'):
+            port = conn.laddr.port
+            active_ports.append(port)
+            # print(f"Protocol: {conn.type.name}, Port: {port}, Status: {conn.status}")
+
+    return active_ports
+
+  
+
+  print(getSystemNetworkPorts())
+
+  # 
