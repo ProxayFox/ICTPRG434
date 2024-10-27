@@ -1,6 +1,6 @@
 # Tafe Assignment
 ## How to Install and Run
-### Linux :: [Ensure Git is installed](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git#_installing_on_windows)
+### Linux :: [Ensure Git is installed](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git#_installing_on_linux)
 1. Install the Nix Package Manager
     ```bash
     sh <(curl -L https://nixos.org/nix/install) --daemon
