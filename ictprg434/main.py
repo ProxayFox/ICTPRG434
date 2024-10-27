@@ -11,6 +11,7 @@ import socket
 import psutil
 import platform
 import subprocess
+import re
 
 def start():
   
@@ -40,5 +41,38 @@ def start():
   def getSystemOS():
     return platform.platform()
 
+  def getSystemCPUInfo():
+    if bool(re.search(r'\bLinux\b', getSystemOS())) == True:
+      cpu_info = {}
+      cpu_info['Processor'] = platform.processor()
+      try:
+        # Using lscpu command to get detailed CPU information
+        lscpu_output = subprocess.check_output("lscpu", shell=True).decode()
+        for line in lscpu_output.split('\n'):
+            if "Model name" in line:
+                cpu_info['Model name'] = line.split(":")[1].strip()
+            if "Architecture" in line:
+                cpu_info['Architecture'] = line.split(":")[1].strip()
+      except Exception as e:
+        print(f"An error occurred while retrieving CPU information: {e}")
+      return cpu_info
+    elif bool(re.search(r'\bWindows\b', getSystemOS())) == True:
+      cpu_info = {}
+      cpu_info['Processor'] = platform.processor()
+      try:
+        # Using wmic command to get detailed CPU information
+        wmic_output = subprocess.check_output("wmic cpu get name, numberofcores, maxclockspeed", shell=True).decode()
+        for line in wmic_output.split('\n'):
+            if "Name" in line:
+                cpu_info['Model name'] = line.split()[1].strip()
+            if "NumberOfCores" in line:
+                cpu_info['Number of Cores'] = line.split()[1].strip()
+      except Exception as e:
+        print(f"An error occurred while retrieving CPU information: {e}")
 
-  print(getSystemOS())
+      return cpu_info
+    else:
+      return "unknown system"
+
+
+  print(getSystemCPUInfo())
