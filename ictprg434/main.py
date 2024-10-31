@@ -23,7 +23,7 @@ def start():
     if network_interface_name in interfaces:
         for addr in interfaces[network_interface_name]:
             # Look for the MAC address, which is identified by AF_LINK family
-            if addr.family == psutil.AF_LINK:
+            if addr.family == psutil.AF_LINK
                 return f"{addr.address}"
     return "Missing Information"
 
@@ -128,15 +128,14 @@ def start():
   # Write to the file
   # Append the Data if header/file already exist
   with open("hostData.csv", "a", newline='') as csvfile:
-    # Assign the Header of the CSV
-    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames) # Assign the Header of the CSV
     # Only Write to the Header if it doesn't exist
     if os.stat("hostData.csv").st_size == 0:
-        writer.writeheader()
-    # Wrie Gathered Data to CSV
-    writer.writerows(data)
+        writer.writeheader() # Write the headers if no headers
+    writer.writerows(data) # Wrie Gathered Data to CSV
 
-  if os.stat("hostData.csv").st_size == 0:
-    print("CSV Created, headers added and Data added")
+  # Inform the user of the results
+  if os.stat("hostData.csv").st_size == 0: #If the file is empty, it prints the message
+    print("CSV Created, headers added and Data added") # Inform file made, headers added and data added
   elif:
-    print("Data Appended")
+    print("Data Appended") # Inform that the data had been added
