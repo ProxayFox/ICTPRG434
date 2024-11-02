@@ -23,7 +23,7 @@ def start():
     if network_interface_name in interfaces:
         for addr in interfaces[network_interface_name]:
             # Look for the MAC address, which is identified by AF_LINK family
-            if addr.family == psutil.AF_LINK
+            if addr.family == psutil.AF_LINK:
                 return f"{addr.address}"
     return "Missing Information"
 
@@ -95,10 +95,10 @@ def start():
     active_ports = []
 
     for conn in connections:
-        # Only consider activly listening connections
-        if conn.status in ('LISTEN'):
-            port = conn.laddr.port
-            active_ports.append(port)
+      # Only consider activly listening connections
+      if conn.status in ('LISTEN'):
+        port = conn.laddr.port
+        active_ports.append(port)
     return f"{active_ports}"
 
   # Organise the CSV Headers
@@ -137,5 +137,7 @@ def start():
   # Inform the user of the results
   if os.stat("hostData.csv").st_size == 0: #If the file is empty, it prints the message
     print("CSV Created, headers added and Data added") # Inform file made, headers added and data added
-  elif:
+  else:
     print("Data Appended") # Inform that the data had been added
+
+# print(start())

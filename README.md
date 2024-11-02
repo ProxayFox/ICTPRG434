@@ -46,3 +46,25 @@
     poetry run main
     ```
     Results will show in a file called hostData.csv
+
+### Unable to get Poetry working
+1. Ensure Python 3.12 is installed
+2. Open and edit `ictprg434/main.py`
+3. Go to the very bottom of the script and uncomment the `print(start())`
+    From 
+    ```python
+    # print(start())
+    ```
+    to
+    ```python
+    print(start())
+    ```
+4. Install psutils
+    ```bash
+    py -m pip install psutils
+    ```
+5. Run the script
+    then run 
+    ```bash
+    py ./ictprg434/main.py
+    ```
