@@ -50,19 +50,9 @@ def start():
         print(f"Error occurred while retrieving Linux CPU information: {e}")
       return f"{cpu_info['Model name']}"
     elif bool(re.search(r'\bWindows\b', getSystemOS())) == True:
-      cpu_info = {}
-      cpu_info['Processor'] = platform.processor()
-      try:
-        # Using wmic command to get detailed CPU information
-        wmic_output = subprocess.check_output("wmic cpu get name, numberofcores, maxclockspeed", shell=True).decode()
-        for line in wmic_output.split('\n'):
-          if "Model name" in line:
-            cpu_info['Model name'] = line.split()[1].strip()
-          if "NumberOfCores" in line:
-            cpu_info['Number of Cores'] = line.split()[1].strip()
-      except Exception as e:
-        print(f"Error occurred while retrieving Windows CPU information: {e}")
-      return f"{cpu_info['Model name']}"
+      get_cpu_command = "powershell -Command \"(Get-CimInstance -ClassName Win32_Processor).Name\""
+      get_cpu_result = subprocess.check_output(command, shell=True, text=True)
+      return get_cpu_result.strip()
     else:
       return "unknown system/CPU Information"
 
