@@ -51,7 +51,7 @@ def start():
       return f"{cpu_info['Model name']}"
     elif bool(re.search(r'\bWindows\b', getSystemOS())) == True:
       get_cpu_command = "powershell -Command \"(Get-CimInstance -ClassName Win32_Processor).Name\""
-      get_cpu_result = subprocess.check_output(command, shell=True, text=True)
+      get_cpu_result = subprocess.check_output(get_cpu_command, shell=True, text=True)
       return get_cpu_result.strip()
     else:
       return "unknown system/CPU Information"
