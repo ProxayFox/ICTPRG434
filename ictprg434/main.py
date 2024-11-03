@@ -56,7 +56,7 @@ def start():
         # Using wmic command to get detailed CPU information
         wmic_output = subprocess.check_output("wmic cpu get name, numberofcores, maxclockspeed", shell=True).decode()
         for line in wmic_output.split('\n'):
-          if "Name" in line:
+          if "Model name" in line:
             cpu_info['Model name'] = line.split()[1].strip()
           if "NumberOfCores" in line:
             cpu_info['Number of Cores'] = line.split()[1].strip()
