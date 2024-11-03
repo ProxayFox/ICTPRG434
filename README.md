@@ -39,11 +39,11 @@
     ```
 3. Build Poetry Environment and dependencies
     ```bash
-    poetry install
+    pipx run poetry install
     ```
 4. Run the Script and get the resulting data
     ```bash
-    poetry run main
+    pipx run poetry run main
     ```
     Results will show in a file called hostData.csv
 
