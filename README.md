@@ -1,5 +1,31 @@
 # Tafe Assignment
-## How to Install and Run
+# How to Install and Run
+## Prerequisites
+### Software Requirements
+ - Python 3.12
+ - PIPx
+ - Poetry
+### Libraries
+  - Psutil-6.1.0
+  - Libraries included with Python 3.12
+### Tools
+ - CLI Access
+
+## Installation Instructions
+### Nixos or with NixPKG Manager
+1. Create the nix env
+    ```bash
+    nix-shell
+    ```
+2. Build Poetry Environment and dependencies
+    ```bash
+    poetry install
+    ```
+3. Run the Script and get the resulting data
+    ```bash
+    poetry run main
+    ```
+
 ### Linux :: [Ensure Git is installed](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git#_installing_on_linux)
 1. Install the Nix Package Manager
     ```bash
@@ -68,3 +94,17 @@
     ```bash
     py ./ictprg434/main.py
     ```
+## Usage Instructions:
+This is outlined in the README.md of the code’s directory
+### Linux:
+```bash
+poetry run main
+```
+### Windows:
+```bash
+pipx run poetry run main
+```
+### Without Poetry:
+```bash
+py ./ictprg434/main.py
+```
